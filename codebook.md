@@ -29,3 +29,5 @@ date: "June 12, 2019"
     7. Appropriately label the data set in 5 with descriptive variable names  
     8. Create an independent tidy data set with the average of each variable for each activity and each subject  
     9. Write the contents of the tidy data set to a text file
+
+## Description of the variables in the mean_std_dat.txt file
