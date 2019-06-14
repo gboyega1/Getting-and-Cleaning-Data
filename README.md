@@ -34,15 +34,15 @@ The run_analysis script creates a tidy data set comprising the average of each v
 #### from the newly merged data set, extracts measurements on mean and standard deviation only
  `mean_stdv_data <- Merged_data[grepl("\\<mean()\\>", colnames(Merged_data)) | grepl("\\<std()\\>", colnames(Merged_data)) |  grepl("Activities", colnames(Merged_data)) | grepl("SubjectID", colnames(Merged_data))]`
 
-#### Using descriptive activity names to name the activities in the dataset by substituting the activity number with it's respective activity name
+#### Using descriptive activity names to name the activities in the dataset by substituting the activity number with it's respective activity name. 
  `mean_stdv_data$Activities <- activity_labels$V2[mean_stdv_data$Activities]`
 
-#### Appropriately labels the data set with descriptive variable names by removing symbols such as "_", "_", "()" and replacing "t" with "Time"
+#### Appropriately labels the data set with descriptive variable names by removing symbols such as "_", "_", "()" and replacing "t" with "Time". This requires installation of the package "mgsub"
  `colnames(mean_stdv_data) <- mgsub(c(colnames(mean_stdv_data)), c('\\()|_|-','^t'), c('',"Time"))`
 
-#### Creates a tidy data set with the average of each variable for each activity and each subject
+#### Creates a tidy data set with the average of each variable for each activity and each subject. Using the chain operator "%>%" requires installation of the package "dplyr"
  `mean_std_dat <- group_by(mean_stdv_data, SubjectID, Activities) %>% 
-  summarise_all(funs(mean))`
+  summarise_all(list(mean))`
 
 #### Writes the tidy data set to a text file called "mean_std_dat"
  `write.table(mean_std_dat, "mean_std_dat.txt", sep = "\t", row.name = FALSE)`
